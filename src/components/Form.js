@@ -17,6 +17,9 @@ const FormContainer = styled.form`
 const InputArea = styled.div`
   display: flex;
   flex-direction: column;
+  width: 200 px; /* Defina o tamanho desejado em pixels */
+
+  
 `;
 
 const Input = styled.input`
@@ -34,13 +37,15 @@ const Button = styled.button`
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  background-color: #2c73d2;
+  background: linear-gradient(to bottom, #800080, #FF00FF);
   color: white;
-  height: 42px;
+  height: 30px;
+  
 `;
 
 const Form = ({ getUsers, onEdit, setOnEdit }) => {
-  const ref = useRef();
+    const ref = useRef();
+  
 
   useEffect(() => {
     if (onEdit) {
@@ -100,26 +105,31 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
 
   return (
     <FormContainer ref={ref} onSubmit={handleSubmit}>
-      <InputArea>
+      <InputArea className="input-area">
         <Label>Nome</Label>
         <Input name="nome" />
       </InputArea>
-      <InputArea>
+      <InputArea className="input-area">
         <Label>E-mail</Label>
         <Input name="email" type="email" />
       </InputArea>
-      <InputArea>
+      <InputArea className="input-area">
         <Label>Telefone</Label>
         <Input name="fone" />
       </InputArea>
-      <InputArea>
+      <InputArea className="input-area">
         <Label>Data de Nascimento</Label>
         <Input name="data_nascimento" type="date" />
       </InputArea>
-
-      <Button type="submit">SALVAR</Button>
+      <InputArea className="input-area">
+        <Label>CPF</Label>
+        <Input name="senha" type="password" />
+      </InputArea>
+      {/* Mova o botão "SALVAR" para dentro de um novo InputArea */}
+      <InputArea className="input-area">
+        <Button type="submit">SALVAR</Button>
+      </InputArea>
     </FormContainer>
   );
-};
-
+  };  
 export default Form;

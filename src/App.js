@@ -8,9 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const Container = styled.div`
+font-family: 'Poppins', sans-serif; 
+background: linear-gradient(to bottom, #800080, #FF00FF);
   width: 100%;
   max-width: 800px;
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,7 +41,7 @@ function App() {
   return (
     <>
       <Container>
-        <Title>USUÁRIOS</Title>
+        <Title>Cadastro</Title>
         <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
         <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
       </Container>

@@ -1,20 +1,49 @@
 import { createGlobalStyle } from "styled-components";
 
 const Global = createGlobalStyle`
+@media (max-width: 480px) {
+ 
+  h2 {
+    font-size: 10px;
+    font-family: 'Poppins', sans-serif; 
+  }
 
-  * {
-    margin: 0;
-    padding: 0;
-    font-family: 'poppins', sans-serif;
+  button {
+    padding: 3px;
   }
-  
-  body {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    background-color: #f2f2f2;
+
+  form {
+    width: 50%;
   }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 19px;
+    font-family: 'Poppins', sans-serif; 
+  }
+
+  .input-area {
+    margin-bottom: 10px;
+  }
+
+  form {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  h2 {
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif; 
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 `;
 
 export default Global;
