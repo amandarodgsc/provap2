@@ -5,13 +5,13 @@ import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Table = styled.table`
+  max-width: 800px;
   width: 100%;
-  font-family: 'Poppins', sans-serif; 
+  font-family: 'Poppins', sans-serif;
   background-color: #fff;
   padding: 20px;
   box-shadow: 0px 0px 5px #ccc;
   border-radius: 5px;
-  max-width: 1120px;
   margin: 20px auto;
   word-break: break-all;
 `;
@@ -26,19 +26,25 @@ export const Th = styled.th`
   text-align: start;
   border-bottom: inset;
   padding-bottom: 5px;
-
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
+  width: 20%; /* Largura das colunas */
+  font-size: 16px; /* Tamanho do texto */
 `;
 
 export const Td = styled.td`
-  padding-top: 15px;
-  text-align: ${(props) => (props.alignCenter ? "center" : "start")};
-  width: ${(props) => (props.width ? props.width : "auto")};
-
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
+  padding: 10px;
+  text-align: start;
+  vertical-align: top;
+  width: 20%; /* Largura das colunas */
+  font-size: 16px; /* Tamanho do texto */
+  /* Evita que o texto quebre em várias linhas */
+  overflow: hidden; /* Esconde o texto que excede a largura da célula */
+  max-width: 200px; /* Largura máxima da célula para dispositivos móveis */
+  text-overflow: ellipsis; /* Exibe reticências (...) para o texto que não cabe na célula */
+  cursor: pointer;
+  &:hover {
+    white-space: normal; /* Exibe o texto completo ao passar o mouse */
+    overflow: visible;
+    max-width: none;
   }
 `;
 
@@ -48,16 +54,14 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
   };
 
   const handleDelete = async (id) => {
-    await axios
-      .delete("http://localhost:8800/" + id)
-      .then(({ data }) => {
-        const newArray = users.filter((user) => user.id !== id);
-
-        setUsers(newArray);
-        toast.success(data);
-      })
-      .catch(({ data }) => toast.error(data));
-
+    try {
+      const response = await axios.delete("http://localhost:8800/" + id);
+      const newArray = users.filter((user) => user.id !== id);
+      setUsers(newArray);
+      toast.success(response.data);
+    } catch (error) {
+      toast.error(error.response.data);
+    }
     setOnEdit(null);
   };
 
@@ -67,7 +71,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
         <Tr>
           <Th>Nome</Th>
           <Th>Email</Th>
-          <Th onlyWeb>Fone</Th>
+          <Th>Fone</Th>
           <Th></Th>
           <Th></Th>
         </Tr>
@@ -75,15 +79,13 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
       <Tbody>
         {users.map((item, i) => (
           <Tr key={i}>
-            <Td width="30%">{item.nome}</Td>
-            <Td width="30%">{item.email}</Td>
-            <Td width="20%" onlyWeb>
-              {item.fone}
-            </Td>
-            <Td alignCenter width="5%">
+            <Td>{item.nome}</Td>
+            <Td>{item.email}</Td>
+            <Td>{item.fone}</Td>
+            <Td alignCenter>
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>
-            <Td alignCenter width="5%">
+            <Td alignCenter>
               <FaTrash onClick={() => handleDelete(item.id)} />
             </Td>
           </Tr>

@@ -17,7 +17,7 @@ const FormContainer = styled.form`
 const InputArea = styled.div`
   display: flex;
   flex-direction: column;
-  width: 200 px; /* Defina o tamanho desejado em pixels */
+  width:200 px; /* Defina o tamanho desejado em pixels */
 
   
 `;
